@@ -1,4 +1,6 @@
-# RM-Docket
+# RM-DOCKet
+
+[Docket][https://www.merriam-webster.com/thesaurus/docket] Dock
 
 A Rainmeter skin/Lua script that parses spreadsheets and makes a dynamic, interactive schedule.
 
