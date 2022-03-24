@@ -45,6 +45,10 @@ Each action will only apply to its equivalent cell in `schedule.csv`. An example
 
 Labels have built-in hover actions to change their own style, but you can extend these hover actions. (Built-in actions are appended to CSV actions.)
 
+## Installation
+
+Go to the [releases tab](https://github.com/ChuseCubr/RM-Docket/releases), download the .rmskin file, and open it with Rainmeter.
+
 ## Important notes
 
 Times must be in a `HH:MM` 24-hour format in order to work properly (see banner or download skin for an example).
