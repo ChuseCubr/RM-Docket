@@ -1,6 +1,6 @@
 # DOCKet
 
-![banner](https://user-images.githubusercontent.com/27886422/159853369-5dfa8e37-ce1a-4483-905a-4984ecbd0e7b.png)
+![banner](https://user-images.githubusercontent.com/27886422/159879078-210da2cc-d449-4fba-bd2e-e45bf6564bce.png)
 
 [Schedule](https://www.merriam-webster.com/thesaurus/docket) Dock
 
