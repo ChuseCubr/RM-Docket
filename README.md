@@ -1,4 +1,4 @@
-# RM-DOCKet
+# DOCKet
 
 ![banner](https://user-images.githubusercontent.com/27886422/159853369-5dfa8e37-ce1a-4483-905a-4984ecbd0e7b.png)
 
