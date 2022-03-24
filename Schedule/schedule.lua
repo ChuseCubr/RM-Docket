@@ -326,25 +326,6 @@ local function initSched(day, now)
     _setThresholds()
 end
 
-local function posSkin()
-    local screenW = SKIN:GetVariable("SCREENAREAWIDTH")
-    local screenH = SKIN:GetVariable("SCREENAREAHEIGHT")
-    local skinW   = SKIN:GetVariable("CURRENTCONFIGWIDTH")
-    local skinH   = SKIN:GetVariable("CURRENTCONFIGHEIGHT")
-    local skinX   = SKIN:GetVariable("SkinX")
-    local skinY   = SKIN:GetVariable("SkinY")
-
-    if skinX == nil or skinX == "" then
-        skinX = screenW/2 - skinW/2
-    end
-
-    if skinY == nil or skinY == "" then
-        skinY = screenH/2 - skinH/2
-    end
-
-    SKIN:MoveWindow(skinX, skinY)
-end
-
 
 --=== Rainmeter functions ===--
 function Initialize()
@@ -382,7 +363,6 @@ function Update()
     -- read schedule file until no more refreshes
     if Refreshes < 3 then
         initSched(day, now)
-        posSkin()
         Refreshes = Refreshes + 1
     end
 
