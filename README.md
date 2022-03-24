@@ -47,6 +47,10 @@ Labels have built-in hover actions to change their own style, but you can extend
 
 ## Important notes
 
+Times must be in a `HH:MM` 24-hour format in order to work properly (see banner or download skin for an example).
+
+By default, the schedule is by week (starting on Sunday) and changes per day, but this behavior can be changed. Just change line 357 in `schedule.lua` to fit your needs.
+
 I'm too small-brained to properly parse CSV files, so substitutions to certain characters must be made in order to:
 
 - allow Excel to save to a parsable format (no quotes), and
