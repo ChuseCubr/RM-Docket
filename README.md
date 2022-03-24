@@ -8,6 +8,8 @@ A Rainmeter skin/Lua script that parses spreadsheets and makes a dynamic, intera
 
 ## Features
 
+![suite_showcase](https://user-images.githubusercontent.com/27886422/159912205-dd269250-f1c4-47ee-b858-f598084b8074.gif)
+
 ### Easy to use
 
 Create your schedule in `schedule.csv`, load the skin in Rainmeter, and the script will handle everything. (Please read important notes.)
