@@ -1,5 +1,7 @@
 # RM-DOCKet
 
+![banner](https://user-images.githubusercontent.com/27886422/159853369-5dfa8e37-ce1a-4483-905a-4984ecbd0e7b.png)
+
 [Schedule](https://www.merriam-webster.com/thesaurus/docket) Dock
 
 A Rainmeter skin/Lua script that parses spreadsheets and makes a dynamic, interactive schedule.
