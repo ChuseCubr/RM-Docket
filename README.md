@@ -30,8 +30,6 @@ Some settings are made accessible in the ini file, namely:
   - Space in px between the centers of each element.
 - `TimeOffset`
   - Difference in vertical positions between time and name labels in px.
-- `SkinX` and `SkinY`
-  - If left blank, centers the skin.
 - `Delimiter`
   - To accomodate regional differences in CSV format (though there are still limitations; please read notes).
 
