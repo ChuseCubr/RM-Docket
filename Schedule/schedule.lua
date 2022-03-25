@@ -337,9 +337,6 @@ function Update()
     local now = os.date("%H:%M")
     local day = os.date("%w") + 2
 
-    print(SKIN:GetMeasure("cCounter").GetValue())
-    print(day)
-
     -- ignore .inc if first load
     if SKIN:GetMeasure("cCounter"):GetValue() == 1 then
         Refreshes     = 0
