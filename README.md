@@ -4,9 +4,13 @@
 
 [Schedule](https://www.merriam-webster.com/thesaurus/docket) Dock
 
-A Rainmeter skin/Lua script that parses spreadsheets and makes a dynamic, interactive schedule.
+A [Rainmeter](https://www.rainmeter.net/) skin/Lua script that parses spreadsheets and makes a dynamic, interactive schedule.
 
 ## Features
+
+![suite_showcase](https://user-images.githubusercontent.com/27886422/159912205-dd269250-f1c4-47ee-b858-f598084b8074.gif)
+
+[Wallpaper](https://www.deviantart.com/aaronolive/art/Firewatch-Mods-619259473)
 
 ### Easy to use
 
@@ -47,11 +51,13 @@ Labels have built-in hover actions to change their own style, but you can extend
 
 Go to the [releases tab](https://github.com/ChuseCubr/RM-Docket/releases), download the .rmskin file, and open it with Rainmeter.
 
+If you want to turn off or change the example mouse actions, go into the `Schedule\actions` folder and edit the CSV files.
+
 ## Important notes
 
 Times must be in a `HH:MM` 24-hour format in order to work properly (see banner or download skin for an example).
 
-By default, the schedule is by week (starting on Sunday) and changes per day, but this behavior can be changed. Just change line 357 in `schedule.lua` to fit your needs.
+By default, the schedule is by week (starting on Sunday) and changes per day, but this behavior can be changed. Just change line 338 in `schedule.lua` to fit your needs.
 
 I'm too small-brained to properly parse CSV files, so substitutions to certain characters must be made in order to:
 
