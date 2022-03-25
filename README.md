@@ -51,11 +51,13 @@ Labels have built-in hover actions to change their own style, but you can extend
 
 Go to the [releases tab](https://github.com/ChuseCubr/RM-Docket/releases), download the .rmskin file, and open it with Rainmeter.
 
+If you want to turn off or change the example mouse actions, go into the `Schedule\actions` folder and edit the CSV files.
+
 ## Important notes
 
 Times must be in a `HH:MM` 24-hour format in order to work properly (see banner or download skin for an example).
 
-By default, the schedule is by week (starting on Sunday) and changes per day, but this behavior can be changed. Just change line 357 in `schedule.lua` to fit your needs.
+By default, the schedule is by week (starting on Sunday) and changes per day, but this behavior can be changed. Just change line 338 in `schedule.lua` to fit your needs.
 
 I'm too small-brained to properly parse CSV files, so substitutions to certain characters must be made in order to:
 
