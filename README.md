@@ -30,6 +30,7 @@ Some settings are made accessible in the ini file, namely:
   - Position time labels above name labels.
 - `ChangeStyleOnHover=[0|1]`
   - Toggle the built-in hover mouse action.
+- `LabelAlign=[Left|Center|Right]`
 - `Spacing`
   - Space in px between the centers of each element.
 - `TimeOffset`
