@@ -47,7 +47,6 @@ local function _parseCSV(file)
     if sep == "" then
         sep = ","
     end
-
     for line in io.lines(file) do
         -- imitate repetition
         local _, len = string.gsub(line, ",", ",")
@@ -83,13 +82,16 @@ local function _setSched(week, day, now)
         )
         if now < Schedule[i].TimeStart then
             Schedule[i].Style="StyleUpcoming"
-            Schedule[i].HoverStyle="StyleUpcomingHover"
+            Schedule[i].Color = SKIN:GetVariable("UpcomingColor")
+            Schedule[i].HoverColor = SKIN:GetVariable("UpcomingHoverColor")
         elseif now < Schedule[i].TimeEnd then
             Schedule[i].Style="StyleOngoing"
-            Schedule[i].HoverStyle="StyleOngoingHover"
+            Schedule[i].Color = SKIN:GetVariable("OngoingColor")
+            Schedule[i].HoverColor = SKIN:GetVariable("OngoingHoverColor")
         else
             Schedule[i].Style="StyleCompleted"
-            Schedule[i].HoverStyle="StyleCompletedHover"
+            Schedule[i].Color = SKIN:GetVariable("CompletedColor")
+            Schedule[i].HoverColor = SKIN:GetVariable("CompletedHoverColor")
         end
     end
 end
@@ -166,6 +168,57 @@ local function _getNumVar(name, default)
     return var
 end
 
+local function _addActions(i)
+    local content = ""
+    local hasHoverStyle = _getNumVar("ChangeStyleOnHover", 0)
+    for j = 1, #ValidActions, 1 do
+        if Schedule[i][ValidActions[j]] ~= nil or ValidActions[j] == "MouseOverAction" or ValidActions[j] == "MouseLeaveAction" then
+            -- append built-in hover actions if csv hover actions exist
+            if ValidActions[j] == "MouseOverAction" or "MouseLeaveAction" then
+                content = content..string.format("%s=", ValidActions[j])
+                -- csv
+                if Schedule[i][ValidActions[j]] ~= nil then
+                    content = content..Schedule[i][ValidActions[j]]
+                end
+                -- built-in
+                if hasHoverStyle == 1 then
+                    local color
+                    if ValidActions[j] == "MouseOverAction" then
+                        color = Schedule[i].HoverColor
+                    else
+                        color = Schedule[i].Color
+                    end
+                    content = content..string.format("[!SetOption Slot%d FontColor \"%s\"]", i, color)
+                end
+            else
+                content = content..string.format("%s=%s", ValidActions[j], Schedule[i][ValidActions[j]])
+            end
+            content = content.."\n"
+        end
+    end
+    return content
+end
+
+local function _getOffset(align)
+    local widerW
+    local slotW = SKIN:GetMeter("Slot"):GetW()
+    local timeW = SKIN:GetMeter("Time"):GetW()
+
+    if slotW > timeW then
+        widerW = slotW
+    else
+        widerW = timeW
+    end
+
+    if align == "Center" then
+        return widerW/2
+    elseif align == "Right" then
+        return widerW
+    else
+        return 0
+    end
+end
+
 local function _initContent()
     local content = string.format([[
 ; set here bc refresh bang resets everything
@@ -177,7 +230,7 @@ PrevDay=%d
         NextThreshold,
         Refreshes,
         PrevDay)
-        
+
     -- invisible meters for positioning other meters
     if #Schedule >= 1 then
         content = content..string.format([[
@@ -209,54 +262,45 @@ end
 
 -- actual displayed meters
 local function _extendContent(incFile, offset, i)
-    local content = incFile.content
+    local align = incFile.align
     local vMode = incFile.vMode
     local space = incFile.space
     local timeAbove = incFile.timeAbove
     local timeOffset = incFile.timeOffset
 
-    content = content..string.format([[
-        
+    local content = string.format([[
+
 [Slot%d]
 Meter=String
 MeterStyle=%s
+StringAlign=%s
+FontColor=%s
 X=%.2f
 Y=%.2f
 Text=%s
 ]],
         i,
         Schedule[i].Style,
+        align,
+        Schedule[i].Color,
         (offset + (1-vMode) * (i-1) * space),
         (vMode * space * (i-1) + timeAbove * timeOffset),
         Schedule[i].Name)
 
-    -- actions
-    for j = 1, #ValidActions, 1 do
-        if Schedule[i][ValidActions[j]] ~= nil then
-            content = content..string.format("%s=%s", ValidActions[j], Schedule[i][ValidActions[j]])
-
-            local hasHoverStyle = _getNumVar("ChangeStyleOnHover", 0)
-            if hasHoverStyle == 1 then
-                if ValidActions[j] == "MouseOverAction" then
-                    content = content..string.format("[!SetOption Slot%d MeterStyle \"%s\"]", i, Schedule[i].HoverStyle)
-                elseif ValidActions[j] == "MouseLeaveAction" then
-                    content = content..string.format("[!SetOption Slot%d MeterStyle \"%s\"]", i, Schedule[i].Style)
-                end
-            end
-            content = content.."\n"
-        end
-    end
+    content = content.._addActions(i)
     content = content..string.format([[DynamicVariables=1
 
 [Time%d]
 Meter=String
 MeterStyle=StyleTimes
+StringAlign=%s
 X=%.2f
 Y=%.2f
 Text=%s
 DynamicVariables=1
 ]],
         i,
+        align,
         (offset + (1-vMode) * (i-1) * space),
         ((1-timeAbove) * timeOffset + vMode * space * (i-1)),
         Schedule[i].Time)
@@ -283,24 +327,21 @@ end
 
 local function _extendInc()
     -- offset for centering based on name/time, depending on width
-    local slotW = SKIN:GetMeter("Slot"):GetW()
-    local timeW = SKIN:GetMeter("Time"):GetW()
+    local align = SKIN:GetVariable("LabelAlign")
+    local offset = _getOffset(align)
+    local content = _initContent()
     local incFile = {}
-    
-    incFile.content = _initContent()
+
+    incFile.align = align
     incFile.vMode = _getNumVar("VerticalMode", 0)
     incFile.space = _getNumVar("Spacing", 200)
     incFile.timeAbove = _getNumVar("TimeAbove", 0)
     incFile.timeOffset = _getNumVar("TimeOffset", 30)
 
     for i = 1, #Schedule, 1 do
-        if slotW > timeW then
-            incFile.content = _extendContent(incFile, slotW/2, i)
-        else
-            incFile.content = _extendContent(incFile, timeW/2, i)
-        end
+        content = content.._extendContent(incFile, offset, i)
     end
-    _writeInc(incFile.content)
+    _writeInc(content)
 end
 
 
@@ -334,8 +375,8 @@ function Initialize()
 end
 
 function Update()
-    local now = os.date("%H:%M")
     local day = os.date("%w") + 2
+    local now = os.date("%H:%M")
 
     -- ignore .inc if first load
     if SKIN:GetMeasure("cCounter"):GetValue() == 1 then
@@ -358,7 +399,7 @@ function Update()
     PrevDay = day
 
     -- read schedule file until no more refreshes
-    if Refreshes < 3 then
+    if Refreshes < 4 then
         initSched(day, now)
         Refreshes = Refreshes + 1
     end
@@ -373,7 +414,7 @@ function Update()
     end
 
     -- write and refresh
-    if Refreshes < 3 then
+    if Refreshes < 4 then
         updateInc()
         SKIN:Bang("!Refresh")
     end
