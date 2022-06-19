@@ -375,6 +375,8 @@ function Initialize()
 end
 
 function Update()
+    -- +2 = iso week (Sunday first day of the week)
+    -- +1 = non iso week (Monday first day of the week)
     local day = os.date("%w") + 2
     local now = os.date("%H:%M")
 

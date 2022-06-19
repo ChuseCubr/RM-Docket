@@ -6,64 +6,90 @@
 
 A [Rainmeter](https://www.rainmeter.net/) skin/Lua script that parses spreadsheets and makes a dynamic, interactive schedule.
 
-## Features
+Here's a showcase of hover and click actions:
 
 ![suite_showcase](https://user-images.githubusercontent.com/27886422/159912205-dd269250-f1c4-47ee-b858-f598084b8074.gif)
 
 [Wallpaper](https://www.deviantart.com/aaronolive/art/Firewatch-Mods-619259473)
 
-### Easy to use
+## Dependencies
 
-Create your schedule in `schedule.csv`, load the skin in Rainmeter, and the script will handle everything. (Please read important notes.)
-
-Events that take multiple rows are merged, so you don't have to make as many mostly empty rows to accomodate events that occupy irregular time slots.
-
-### Customizable
-
-Styles for every name label status (upcoming, ongoing, completed), their hover counterparts, and time labels are customizable.
-
-Some settings are made accessible in the ini file, namely:
-
-- `VerticalMode=[0|1]`
-  - Arrange elements vertically.
-- `TimeAbove=[0|1]`
-  - Position time labels above name labels.
-- `ChangeStyleOnHover=[0|1]`
-  - Toggle the built-in hover mouse action.
-- `LabelAlign=[Left|Center|Right]`
-- `Spacing`
-  - Space in px between the centers of each element.
-- `TimeOffset`
-  - Difference in vertical positions between time and name labels in px.
-- `Delimiter`
-  - To accomodate regional differences in CSV format (though there are still limitations; please read notes).
-
-You can also customize mouse actions.
-
-### Mouse actions support
-
-Creating a CSV file in the `actions\` folder named after the mouse action will add that functionality to the schedule (e.g. `actions\MouseScrollUpAction.csv`).
-
-Each action will only apply to its equivalent cell in `schedule.csv`. An example is provided.
-
-Labels have built-in hover actions to change their own style, but you can extend these hover actions. (Built-in actions are appended to CSV actions.)
+Of course, you're gonna need [Rainmeter](https://www.rainmeter.net/), but that's about it.
 
 ## Installation
 
 Go to the [releases tab](https://github.com/ChuseCubr/RM-Docket/releases), download the .rmskin file, and open it with Rainmeter.
 
-If you want to turn off or change the example mouse actions, go into the `Schedule\actions` folder and edit the CSV files.
+Edit `Schedule\schedule.csv` to your needs. By default, it's set to ISO weeks (Sunday first day of the week). To change, please see [configuration section](#configuration).
 
-## Important notes
+> If you want to turn off or change the example mouse actions, go into the `Schedule\Actions` folder and edit the CSV files.
+
+## Configuration
+
+On top of configurable styles, you can also adjust the layout in `Schedule\schedule.ini`
+
+```ini
+;-- schedule.ini
+[Variables]
+; vertical layout
+VerticalMode=0
+
+; spacing between each subject
+Spacing=200
+
+; toggle displaying the time label above the subject
+TimeAbove=0
+
+; adjust spacing between subject and time range
+TimeOffset=30
+
+; toggle the built-in hover action (change color)
+ChangeStyleOnHover=1
+
+; subject name align
+LabelAlign=Center
+
+; subject status colors (needed for hover action)
+OngoingColor="255,255,255,200"
+UpComingColor="255,255,255,200"
+CompletedColor="255,255,255,100"
+
+OngoingHoverColor="255,255,255,255"
+UpComingHoverColor="255,255,255,255"
+CompletedHoverColor="255,255,255,180"
+
+; see important notes
+Delimiter=,
+```
+
+By default, the schedule is by iso week (starts on Sunday), but you can change this in line 380 of `Schedule\schedule.lua`:
+
+```lua
+-- schedule.lua
+function Update()
+    -- +2 = iso week (Sunday first day of the week)
+    -- +1 = non iso week (Monday first day of the week)
+    local day = os.date("%w") + 2
+```
 
 Times must be in a `HH:MM` 24-hour format in order to work properly (see banner or download skin for an example).
 
-By default, the schedule is by week (starting on Sunday) and changes per day, but this behavior can be changed. Just change line 338 in `schedule.lua` to fit your needs.
+### Mouse Actions
+
+The skin already has built-in MouseOverActions for changing colors, but you can extend these with your own.
+
+Creating a CSV file in the `Schedule\Actions` folder named after the mouse action will add that functionality to the schedule (e.g. `Schedule\Actions\MouseScrollUpAction.csv`).
+
+Similarly to how you set a mouse action for meters, these actions are set through bangs. Each cell will map to its counterpart in `Schedule\Schedule.csv`. A few examples are provided in the skin:
+
+* LeftMouseDownAction: open a link in your browser
+* MouseOverAction: display some text (set in `Description\`)
+* MouseLeaveAction: stop displaying text (set in `Description\`)
 
 I'm too small-brained to properly parse CSV files, so substitutions to certain characters must be made in order to:
 
-- allow Excel to save to a parsable format (no quotes), and
-- be able to parse columns properly (no excess separators)
+* allow Excel to save to a parsable format (no quotes), and
+* be able to parse columns properly (no excess separators)
 
 I'm only aware of two substitutions that need to be done:
 
@@ -76,4 +102,5 @@ For example:
 
 ```
 [!SetOption Title Text \'Hello\sep  world! I'm alive!\']
+    notice the 2 spaces ----------^^
 ```
