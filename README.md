@@ -76,7 +76,7 @@ function Update()
     local day = os.date("%w") + 2
 ```
 
-Times must be in a `HH:MM` 24-hour format in order to work properly (see banner or download skin for an example).
+Times must be in a `HH:MM` 24-hour format in order to work properly (see preview or download skin for an example).
 
 ## Mouse Actions
 
