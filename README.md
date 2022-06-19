@@ -1,16 +1,17 @@
 # DOCKet
 
-![banner](https://user-images.githubusercontent.com/27886422/159879078-210da2cc-d449-4fba-bd2e-e45bf6564bce.png)
-
-[Schedule](https://www.merriam-webster.com/thesaurus/docket) Dock
+The [Schedule](https://www.merriam-webster.com/thesaurus/docket) Dock
 
 A [Rainmeter](https://www.rainmeter.net/) skin/Lua script that parses spreadsheets and makes a dynamic, interactive schedule.
 
-Here's a showcase of hover and click actions:
-
-![suite_showcase](https://user-images.githubusercontent.com/27886422/159912205-dd269250-f1c4-47ee-b858-f598084b8074.gif)
-
 [Wallpaper](https://www.deviantart.com/aaronolive/art/Firewatch-Mods-619259473)
+
+## Table of Contents
+
+* [Dependencies](#dependencies)
+* [Installation](#installation)
+* [Configuration](#configuration)
+* [Mouse Actions](#mouse-actions)
 
 ## Dependencies
 
@@ -20,7 +21,7 @@ Of course, you're gonna need [Rainmeter](https://www.rainmeter.net/), but that's
 
 Go to the [releases tab](https://github.com/ChuseCubr/RM-Docket/releases), download the .rmskin file, and open it with Rainmeter.
 
-Edit `Schedule\schedule.csv` to your needs. By default, it's set to ISO weeks (Sunday first day of the week). To change, please see [configuration section](#configuration).
+Edit `Schedule\schedule.csv` to your needs. By default, it's set to ISO weeks (Sunday first day of the week). To change this, please see the [configuration section](#configuration).
 
 > If you want to turn off or change the example mouse actions, go into the `Schedule\Actions` folder and edit the CSV files.
 
@@ -74,17 +75,23 @@ function Update()
 
 Times must be in a `HH:MM` 24-hour format in order to work properly (see banner or download skin for an example).
 
-### Mouse Actions
+## Mouse Actions
+
+Here's are some custom mouse actions in action:
+
+![suite_showcase](https://user-images.githubusercontent.com/27886422/159912205-dd269250-f1c4-47ee-b858-f598084b8074.gif)
 
 The skin already has built-in MouseOverActions for changing colors, but you can extend these with your own.
 
-Creating a CSV file in the `Schedule\Actions` folder named after the mouse action will add that functionality to the schedule (e.g. `Schedule\Actions\MouseScrollUpAction.csv`).
+Creating a CSV file in the `Schedule\Actions` folder named after the mouse action will add that functionality to the schedule ([example](https://github.com/ChuseCubr/RM-Docket/tree/main/Schedule/Actions)).
 
-Similarly to how you set a mouse action for meters, these actions are set through bangs. Each cell will map to its counterpart in `Schedule\Schedule.csv`. A few examples are provided in the skin:
+Similarly to how you set a mouse action for meters, these actions are set through bangs. Each cell will map to its counterpart in `Schedule\schedule.csv`. The skin and the showcase above have these custom actions:
 
-* LeftMouseDownAction: open a link in your browser
-* MouseOverAction: display some text (set in `Description\`)
-* MouseLeaveAction: stop displaying text (set in `Description\`)
+* [LeftMouseDownAction](https://github.com/ChuseCubr/RM-Docket/blob/main/Schedule/Actions/LeftMouseDownAction.csv): open a link in your browser
+* [MouseOverAction](https://github.com/ChuseCubr/RM-Docket/blob/main/Schedule/Actions/MouseOverAction.csv): display some text (set in `Description\`)
+* [MouseLeaveAction](https://github.com/ChuseCubr/RM-Docket/blob/main/Schedule/Actions/MouseLeaveAction.csv): stop displaying text (set in `Description\`)
+
+### Important Note
 
 I'm too small-brained to properly parse CSV files, so substitutions to certain characters must be made in order to:
 
