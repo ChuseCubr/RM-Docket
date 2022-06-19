@@ -4,6 +4,8 @@ The [Schedule](https://www.merriam-webster.com/thesaurus/docket) Dock
 
 A [Rainmeter](https://www.rainmeter.net/) skin/Lua script that parses spreadsheets and makes a dynamic, interactive schedule.
 
+![Docket](https://user-images.githubusercontent.com/27886422/174475965-24ba51c9-3f0b-4630-89aa-5a5bd62a2d2f.png)
+
 [Wallpaper](https://www.deviantart.com/aaronolive/art/Firewatch-Mods-619259473)
 
 ## Table of Contents
