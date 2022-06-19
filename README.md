@@ -14,6 +14,7 @@ A [Rainmeter](https://www.rainmeter.net/) skin/Lua script that parses spreadshee
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Mouse Actions](#mouse-actions)
+  * [Important Note](#important-note)
 
 ## Dependencies
 
