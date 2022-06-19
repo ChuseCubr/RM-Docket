@@ -80,7 +80,7 @@ Times must be in a `HH:MM` 24-hour format in order to work properly (see banner 
 
 ## Mouse Actions
 
-Here's are some custom mouse actions in action:
+Here are some custom mouse actions in action:
 
 ![suite_showcase](https://user-images.githubusercontent.com/27886422/159912205-dd269250-f1c4-47ee-b858-f598084b8074.gif)
 
